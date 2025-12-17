@@ -1,0 +1,116 @@
+/* STRUCTURE GÉNÉRALE */
+body {
+    background-color: #296CA9;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+#contenue-du-quiz {
+    width: 100%;
+    max-width: 900px; /* Limite la largeur maximale à 900px sur grand écran, le contenu reste centré et ne s'étale pas trop */
+    padding: 20px;
+}
+
+/* TITRE DU QUIZ */
+#nom-quiz {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 25px;
+}
+
+/* BARRE DE RECHERCHE / FILTRE */
+#filtre input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale, évite les débordements */
+}
+
+/* BLOCS DE QUESTIONS */
+.question {
+    background-color: rgba(72, 146, 211);
+    color: white;
+    padding: 15px 15px 15px 60px; /* Plus d'espace à gauche (60px) pour laisser la place au bouton médaille qui dépasse */
+    border-radius: 12px;
+    margin-bottom: 35px;
+    margin-left: 0px;
+    width: 100%;
+    max-width: 900px;
+    position: relative; /* Permet de positionner le bouton en position absolute par rapport à ce bloc */
+    box-sizing: border-box;
+}
+
+/* Petit effet quand on passe le curseur sur le block d'une question, effet très styler */
+.question:hover {
+    transform: scale(1.01); /* Agrandit légèrement le bloc de 1% quand on passe la souris dessus */
+    transition: 0.2s ease; /* Animation douce de 0.2 secondes */
+}
+
+.question-text {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* BOUTONS MÉDAILLES */
+.question button {
+    position: absolute; /* Positionne le bouton par rapport au bloc .question le plus proche */
+    left: -20px; /* Place le bouton 20px à gauche du bord du bloc (il dépasse donc du bloc) */
+    top: -10px; /* Place le bouton 10px au-dessus du bord supérieur du bloc */
+    background: white;
+    border: none;
+    border-radius: 50%; /* Crée un cercle parfait */
+    width: 40px;
+    height: 40px;
+    display: flex; /* Permet de centrer l'emoji de la médaille */
+    align-items: center; /* Centre verticalement */
+    justify-content: center; /* Centre horizontalement */
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre portée pour donner du relief */
+    transition: transform 0.2s ease; /* Animation douce pour l'effet hover */
+}
+
+.question button:hover {
+    transform: scale(1.1); /* Agrandit le bouton de 10% quand on passe la souris dessus */
+}
+
+/* RÉPONSES */
+.reponse {
+    display: none; /* Cache la réponse par défaut */
+    margin-top: 5px;
+    color: white;
+    margin-left: 10px;
+}
+
+/* EFFET DE CLIC (Le cercle devient gris quand on clic sur le site) */
+.clic-cercle {
+    position: fixed; /* Reste à la position du clic même si on scroll */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #666666;
+    border-radius: 50%; /* Crée un cercle */
+    pointer-events: none; /* Permet aux clics de passer à travers l'élément (ne bloque pas les interactions) */
+    transform: translate(-50%, -50%); /* Centre le cercle sur le point de clic */
+    animation: clickEffect 0.6s ease-out; /* Lance l'animation définie ci-dessous pendant 0.6 secondes */
+}
+
+@keyframes clickEffect {
+    from {
+        opacity: 1; /* Début : totalement visible */
+        transform: translate(-50%, -50%) scale(1); /* Début : taille normale */
+    }
+    to {
+        opacity: 0; /* Fin : totalement transparent (disparaît) */
+        transform: translate(-50%, -50%) scale(3); /* Fin : 3 fois plus grand (s'agrandit) */
+    }
+    /* Résultat : le cercle s'agrandit progressivement et disparaît en fondu */
+}

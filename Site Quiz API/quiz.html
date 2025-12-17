@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="quiz.css">
+    <script src="quiz.js" defer></script> 
+    <title>QUIZ API</title>
+</head>
+<body>
+
+<!-- Explication du html :
+ 
+    On crée toute d'abord une balise div id="contenue-du-quiz" qui va rassembler toutes les questions, les réponses, le filtre etc, 
+    cela va nous permettre de modifier les règles générales dans le css en particulier, comme la longueur.
+
+    Ensuite une div id="nom-quiz" pour le titre du site qui affiche "Auto correction"
+
+    Puis on crée une div id="filtre" qui contient :
+    - Un input de type "search" : c'est la barre de recherche qui va nous permettre de filtrer les questions par mots-clés ou par médailles (🥇🥈🥉)
+
+    Ensuite on crée les questions une par une, chaque question est dans une div avec la classe "question" qui contient :
+    - Un <p class="question-text"> : le texte de la question en gras
+    - Un <button> : le cercle blanc avec la médaille (🥇🥈🥉) qui indique la difficulté et qui permet d'afficher la réponse en cliquant dessus
+    - Un <p class="reponse" id="reponse-X"> : la réponse cachée par défaut, qui s'affiche au clic sur la médaille
+    
+    Chaque réponse a un id unique (reponse-0, reponse-1, etc.) pour pouvoir la cibler facilement en JavaScript si besoin.
+    
+    Toutes les questions suivent la même structure, ce qui permet de les styliser facilement avec le CSS et de les manipuler avec le JavaScript (filtre, randomisation).
+-->
+    
+    <div id="contenue-du-quiz">
+        <div id="nom-quiz">Auto correction</div>
+        <div id="filtre">
+    <input type="search" placeholder="Filtrer...🥇🥈🥉">
+
+    <div class="question">
+        <p class="question-text">
+            Qu'est-ce qu'une variable en JavaScript ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-0">
+            💫Une variable sert à stocker une valeur
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            L'organe le plus long du corps humain
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-1">
+            💫La Peau
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quelle est la capitale de Madagascar ?
+        </p>
+        <button>🥉</button>
+        <p class="reponse" id="reponse-2">
+            💫Antananarivo 
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Combien de continents existe-t-il sur Terre ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-3">
+            💫Il y a 7 continents : Afrique, Amérique du Nord, Amérique du Sud, Antarctique, Asie, Europe et Océanie
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quelle est la planète la plus proche du Soleil ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-4">
+            💫Mercure
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            En quelle année a eu lieu la Révolution française ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-5">
+            💫1789
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quel est l'océan le plus grand du monde ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-6">
+            💫L'océan Pacifique
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Qui a peint la Joconde ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-7">
+            💫Léonard de Vinci
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quelle est la vitesse de la lumière dans le vide ?
+        </p>
+        <button>🥉</button>
+        <p class="reponse" id="reponse-8">
+            💫Environ 299 792 458 mètres par seconde (300 000 km/s)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quel pays a remporté le plus de Coupes du Monde de football ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-9">
+            💫Le Brésil avec 5 victoires
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quelle est la plus haute montagne du monde ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-10">
+            💫L'Everest (8 849 mètres)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Combien d'os possède un adulte humain ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-11">
+            💫206 os
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quel est le plus petit pays du monde ?
+        </p>
+        <button>🥉</button>
+        <p class="reponse" id="reponse-12">
+            💫Le Vatican (0,44 km²)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Qui a écrit "Les Misérables" ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-13">
+            💫Victor Hugo
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?
+        </p>
+        <button>🥈</button>
+        <p class="reponse" id="reponse-14">
+            💫1969 (mission Apollo 11)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quel est le symbole chimique de l'or ?
+        </p>
+        <button>🥉</button>
+        <p class="reponse" id="reponse-15">
+            💫Au (du latin Aurum)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quelle ville est surnommée "La Ville Lumière" ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-16">
+            💫Paris
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Combien de touches possède un piano standard ?
+        </p>
+        <button>🥉</button>
+        <p class="reponse" id="reponse-17">
+            💫88 touches
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Quel animal est le plus rapide sur terre ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-18">
+            💫Le guépard (jusqu'à 110-120 km/h)
+        </p>
+    </div>
+
+    <div class="question">
+        <p class="question-text">
+            Dans quel pays se trouve la Tour de Pise ?
+        </p>
+        <button>🥇</button>
+        <p class="reponse" id="reponse-19">
+            💫En Italie
+        </p>
+    </div>
+
+</div>
+
+    </div>
+</body>
+</html>
